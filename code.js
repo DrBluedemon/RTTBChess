@@ -17,6 +17,7 @@ var board=[
     [null, null, null, null, null, null, null, null], 
     [null, null, null, null, null, null, null, null]
 ];
+
 const IMAGES=new Map([
     ['K', "White_king"], 
     ['k', "Black_king"], 
@@ -31,6 +32,7 @@ const IMAGES=new Map([
     ['P', "White_pawn"], 
     ['p', "Black_pawn"]
 ]);
+
 const EMPTY=0, CAPTURE=1, BLOCKED=2, WHITE=1, BLACK=2;
 var whatToShow=EMPTY;
 const WHITE_BUTTON=document.getElementsByTagName("button")[0], BLACK_BUTTON=document.getElementsByTagName("button")[1];
@@ -53,6 +55,7 @@ function init() {
         }
     }
 }
+
 var columnStartWhite, rowStartWhite, columnEndWhite, rowEndWhite, columnStartBlack, rowStartBlack, columnEndBlack, rowEndBlack;
 function inputMove(isWhite) {
     whatToShow=(isWhite?WHITE:BLACK);
@@ -61,10 +64,12 @@ function inputMove(isWhite) {
     if (isWhite) WHITE_BUTTON.innerText="Making white's move...";
     else BLACK_BUTTON.innerText="Making black's move...";
 }
+
 function resetCellColours() {
      for (let lightCell of document.getElementsByClassName("light")) lightCell.style.background="burlywood";
      for (let darkCell of document.getElementsByClassName("dark")) darkCell.style.background="saddlebrown";
 }
+
 function selectCell(cell) {
     let classes=cell.classList;
     let row= +classes[2].charAt(1), column= +classes[3].charAt(1);
@@ -117,6 +122,7 @@ function selectCell(cell) {
         }
     }
 }
+
 function movementOptions(piece, row, column) {
     let cellsToMoveTo=[];
     switch(piece) {
@@ -204,15 +210,18 @@ function movementOptions(piece, row, column) {
     }
     return cellsToMoveTo;
 }
+
 function interaction(piece, target) {
     if (target==='0') return EMPTY;
     else if ((piece===piece.toUpperCase()&&target===target.toLowerCase())||(piece===piece.toLowerCase()&&target===target.toUpperCase())) return CAPTURE;
     else return BLOCKED;
 }
+
 function moveCheck() {
     //gotta implement them all!
     move(true, true, true);
 }
+
 function move(whitePriority, legalWhite, legalBlack) {
     let imageWhite=objects[rowStartWhite][columnStartWhite], imageBlack=objects[rowStartBlack][columnStartBlack];
     let leftWhite=columnStartWhite*45, topWhite=(7-rowStartWhite)*45, columnDistanceWhite=columnEndWhite-columnStartWhite, rowDistanceWhite=rowEndWhite-rowStartWhite, 
@@ -255,6 +264,7 @@ function move(whitePriority, legalWhite, legalBlack) {
         } else c++;
     }, 30);
 }
+
 function doDangerousStuffWithTheData(collision, whitePriority, legalWhite, legalBlack) {
     if (collision) {
         console.log("There was a collision");
